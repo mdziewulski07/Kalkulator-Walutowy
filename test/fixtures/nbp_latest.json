@@ -1,0 +1,12 @@
+{
+  "table": "A",
+  "currency": "dolar amerykański",
+  "code": "USD",
+  "rates": [
+    {
+      "no": "123/A/NBP/2025",
+      "effectiveDate": "2025-09-14",
+      "mid": 3.63
+    }
+  ]
+}

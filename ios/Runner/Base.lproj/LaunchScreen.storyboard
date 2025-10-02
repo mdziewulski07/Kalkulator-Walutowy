@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17158" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES">
+    <scenes>
+        <scene sceneID="launch">
+            <objects>
+                <viewController id="LaunchController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="LaunchView">
+                        <rect key="frame" x="0" y="0" width="375" height="667"/>
+                        <color key="backgroundColor" red="0.031" green="0.071" blue="0.118" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <subviews>
+                            <label text="Kalkulator Walutowy" translatesAutoresizingMaskIntoConstraints="NO" id="titleLabel">
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </label>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="titleLabel" firstAttribute="centerX" secondItem="LaunchView" secondAttribute="centerX" id="centerX"/>
+                            <constraint firstItem="titleLabel" firstAttribute="centerY" secondItem="LaunchView" secondAttribute="centerY" id="centerY"/>
+                        </constraints>
+                    </view>
+                </viewController>
+            </objects>
+        </scene>
+    </scenes>
+</document>
