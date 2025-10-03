@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17158" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <scenes>
+        <scene sceneID="main">
+            <objects>
+                <viewController id="root" customClass="FlutterViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rootView">
+                        <rect key="frame" x="0" y="0" width="375" height="667"/>
+                        <color key="backgroundColor" red="0.031" green="0.071" blue="0.118" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                </viewController>
+            </objects>
+        </scene>
+    </scenes>
+</document>
