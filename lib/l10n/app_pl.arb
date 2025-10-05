@@ -1,0 +1,8 @@
+﻿{
+  "@@locale": "pl",
+  "appName": "Kalkulator Walutowy",
+  "calculator": "Kalkulator",
+  "chart": "Wykres kursów",
+  "settings": "Ustawienia",
+  "lastUpdateAt": "Ostatnia aktualizacja: {ts}"
+}
