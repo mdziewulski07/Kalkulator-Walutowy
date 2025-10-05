@@ -9,6 +9,7 @@ void main() {
 
 class App extends StatelessWidget {
   const App({super.key});
+
   @override
   Widget build(BuildContext context) {
     final light = ThemeData(
@@ -18,12 +19,16 @@ class App extends StatelessWidget {
     );
     final dark = ThemeData(
       useMaterial3: true,
-      colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF5FDBD8), brightness: Brightness.dark),
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: const Color(0xFF5FDBD8),
+        brightness: Brightness.dark,
+      ),
       textTheme: Typography.material2021().white,
     );
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      onGenerateTitle: (ctx) => AppLocalizations.of(ctx)?.appName ?? 'Kalkulator Walutowy',
+      onGenerateTitle: (ctx) => AppLocalizations.of(ctx)!.appName,
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -44,42 +49,74 @@ class _HomeShell extends StatefulWidget {
   @override
   State<_HomeShell> createState() => _HomeShellState();
 }
+
 class _HomeShellState extends State<_HomeShell> {
   int _index = 0;
+
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
+    final l10n = AppLocalizations.of(context)!;
     final pages = const [CalculatorPage(), RatesChartPage(), SettingsPage()];
+
     return Scaffold(
       body: SafeArea(child: pages[_index]),
       bottomNavigationBar: NavigationBar(
         selectedIndex: _index,
         onDestinationSelected: (i) => setState(() => _index = i),
         destinations: [
-          NavigationDestination(icon: const Icon(Icons.calculate_outlined), selectedIcon: const Icon(Icons.calculate), label: l10n?.calculator ?? 'Calculator'),
-          NavigationDestination(icon: const Icon(Icons.show_chart_outlined),  selectedIcon: const Icon(Icons.show_chart),  label: l10n?.chart ?? 'Chart'),
-          NavigationDestination(icon: const Icon(Icons.settings_outlined),    selectedIcon: const Icon(Icons.settings),    label: l10n?.settings ?? 'Settings'),
+          NavigationDestination(
+            icon: const Icon(Icons.calculate_outlined),
+            selectedIcon: const Icon(Icons.calculate),
+            label: l10n.calculator,
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.show_chart_outlined),
+            selectedIcon: const Icon(Icons.show_chart),
+            label: l10n.chart,
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.settings_outlined),
+            selectedIcon: const Icon(Icons.settings),
+            label: l10n.settings,
+          ),
         ],
       ),
     );
   }
 }
 
-class CalculatorPage extends StatelessWidget { const CalculatorPage({super.key});
-  @override Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    return Scaffold(appBar: AppBar(title: Text(l10n?.calculator ?? 'Calculator')), body: const Center(child: Text('TODO: kalkulator walut')));
+class CalculatorPage extends StatelessWidget {
+  const CalculatorPage({super.key});
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return Scaffold(
+      appBar: AppBar(title: Text(l10n.calculator)),
+      body: const Center(child: Text('TODO: kalkulator walut')),
+    );
   }
 }
-class RatesChartPage extends StatelessWidget { const RatesChartPage({super.key});
-  @override Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    return Scaffold(appBar: AppBar(title: Text(l10n?.chart ?? 'Chart')), body: const Center(child: Text('TODO: wykres kursów')));
+
+class RatesChartPage extends StatelessWidget {
+  const RatesChartPage({super.key});
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return Scaffold(
+      appBar: AppBar(title: Text(l10n.chart)),
+      body: const Center(child: Text('TODO: wykres kursów')),
+    );
   }
 }
-class SettingsPage extends StatelessWidget { const SettingsPage({super.key});
-  @override Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    return Scaffold(appBar: AppBar(title: Text(l10n?.settings ?? 'Settings')), body: const Center(child: Text('TODO: ustawienia')));
+
+class SettingsPage extends StatelessWidget {
+  const SettingsPage({super.key});
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return Scaffold(
+      appBar: AppBar(title: Text(l10n.settings)),
+      body: const Center(child: Text('TODO: ustawienia')),
+    );
   }
 }
