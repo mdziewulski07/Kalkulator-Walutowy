@@ -28,7 +28,9 @@ class App extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      onGenerateTitle: (ctx) => AppLocalizations.of(ctx).appName,
+      // Bezpieczne pobranie tytułu (w testach delegaty ładują się asynchronicznie).
+      onGenerateTitle: (ctx) =>
+          AppLocalizations.maybeOf(ctx)?.appName ?? 'Kalkulator Walutowy',
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -39,13 +41,13 @@ class App extends StatelessWidget {
       theme: light,
       darkTheme: dark,
       themeMode: ThemeMode.system,
-      home: const _HomeShell(), // prywatny widget bez key
+      home: const _HomeShell(),
     );
   }
 }
 
 class _HomeShell extends StatefulWidget {
-  const _HomeShell(); // brak key -> nie ma już "unused_element_parameter"
+  const _HomeShell();
   @override
   State<_HomeShell> createState() => _HomeShellState();
 }
@@ -55,7 +57,7 @@ class _HomeShellState extends State<_HomeShell> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
+    final l10n = AppLocalizations.maybeOf(context);
     final pages = const [CalculatorPage(), RatesChartPage(), SettingsPage()];
 
     return Scaffold(
@@ -67,17 +69,17 @@ class _HomeShellState extends State<_HomeShell> {
           NavigationDestination(
             icon: const Icon(Icons.calculate_outlined),
             selectedIcon: const Icon(Icons.calculate),
-            label: l10n.calculator,
+            label: l10n?.calculator ?? 'Calculator',
           ),
           NavigationDestination(
             icon: const Icon(Icons.show_chart_outlined),
             selectedIcon: const Icon(Icons.show_chart),
-            label: l10n.chart,
+            label: l10n?.chart ?? 'Chart',
           ),
           NavigationDestination(
             icon: const Icon(Icons.settings_outlined),
             selectedIcon: const Icon(Icons.settings),
-            label: l10n.settings,
+            label: l10n?.settings ?? 'Settings',
           ),
         ],
       ),
@@ -89,9 +91,9 @@ class CalculatorPage extends StatelessWidget {
   const CalculatorPage({super.key});
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
+    final l10n = AppLocalizations.maybeOf(context);
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.calculator)),
+      appBar: AppBar(title: Text(l10n?.calculator ?? 'Calculator')),
       body: const Center(child: Text('TODO: kalkulator walut')),
     );
   }
@@ -101,9 +103,9 @@ class RatesChartPage extends StatelessWidget {
   const RatesChartPage({super.key});
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
+    final l10n = AppLocalizations.maybeOf(context);
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.chart)),
+      appBar: AppBar(title: Text(l10n?.chart ?? 'Chart')),
       body: const Center(child: Text('TODO: wykres kursów')),
     );
   }
@@ -113,9 +115,9 @@ class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
+    final l10n = AppLocalizations.maybeOf(context);
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.settings)),
+      appBar: AppBar(title: Text(l10n?.settings ?? 'Settings')),
       body: const Center(child: Text('TODO: ustawienia')),
     );
   }
