@@ -8,7 +8,7 @@ void main() {
 }
 
 class App extends StatelessWidget {
-  const App({super.key});
+  const App();
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class App extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      onGenerateTitle: (ctx) => AppLocalizations.of(ctx)!.appName,
+      onGenerateTitle: (ctx) => AppLocalizations.of(ctx).appName,
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -45,7 +45,8 @@ class App extends StatelessWidget {
 }
 
 class _HomeShell extends StatefulWidget {
-  const _HomeShell({super.key});
+  const _HomeShell(); // bez nieużywanego parametru key
+
   @override
   State<_HomeShell> createState() => _HomeShellState();
 }
@@ -55,7 +56,7 @@ class _HomeShellState extends State<_HomeShell> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context);
     final pages = const [CalculatorPage(), RatesChartPage(), SettingsPage()];
 
     return Scaffold(
@@ -86,10 +87,10 @@ class _HomeShellState extends State<_HomeShell> {
 }
 
 class CalculatorPage extends StatelessWidget {
-  const CalculatorPage({super.key});
+  const CalculatorPage();
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(title: Text(l10n.calculator)),
       body: const Center(child: Text('TODO: kalkulator walut')),
@@ -98,10 +99,10 @@ class CalculatorPage extends StatelessWidget {
 }
 
 class RatesChartPage extends StatelessWidget {
-  const RatesChartPage({super.key});
+  const RatesChartPage();
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(title: Text(l10n.chart)),
       body: const Center(child: Text('TODO: wykres kursów')),
@@ -110,10 +111,10 @@ class RatesChartPage extends StatelessWidget {
 }
 
 class SettingsPage extends StatelessWidget {
-  const SettingsPage({super.key});
+  const SettingsPage();
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(title: Text(l10n.settings)),
       body: const Center(child: Text('TODO: ustawienia')),
