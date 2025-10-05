@@ -28,9 +28,10 @@ class App extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      // Bezpieczne pobranie tytułu (w testach delegaty ładują się asynchronicznie).
-      onGenerateTitle: (ctx) =>
-          AppLocalizations.maybeOf(ctx)?.appName ?? 'Kalkulator Walutowy',
+      onGenerateTitle: (ctx) {
+        final l10n = Localizations.of<AppLocalizations>(ctx, AppLocalizations);
+        return l10n?.appName ?? 'Kalkulator Walutowy';
+      },
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -57,7 +58,7 @@ class _HomeShellState extends State<_HomeShell> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.maybeOf(context);
+    final l10n = Localizations.of<AppLocalizations>(context, AppLocalizations);
     final pages = const [CalculatorPage(), RatesChartPage(), SettingsPage()];
 
     return Scaffold(
@@ -89,9 +90,10 @@ class _HomeShellState extends State<_HomeShell> {
 
 class CalculatorPage extends StatelessWidget {
   const CalculatorPage({super.key});
+
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.maybeOf(context);
+    final l10n = Localizations.of<AppLocalizations>(context, AppLocalizations);
     return Scaffold(
       appBar: AppBar(title: Text(l10n?.calculator ?? 'Calculator')),
       body: const Center(child: Text('TODO: kalkulator walut')),
@@ -101,9 +103,10 @@ class CalculatorPage extends StatelessWidget {
 
 class RatesChartPage extends StatelessWidget {
   const RatesChartPage({super.key});
+
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.maybeOf(context);
+    final l10n = Localizations.of<AppLocalizations>(context, AppLocalizations);
     return Scaffold(
       appBar: AppBar(title: Text(l10n?.chart ?? 'Chart')),
       body: const Center(child: Text('TODO: wykres kursów')),
@@ -113,9 +116,10 @@ class RatesChartPage extends StatelessWidget {
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.maybeOf(context);
+    final l10n = Localizations.of<AppLocalizations>(context, AppLocalizations);
     return Scaffold(
       appBar: AppBar(title: Text(l10n?.settings ?? 'Settings')),
       body: const Center(child: Text('TODO: ustawienia')),
