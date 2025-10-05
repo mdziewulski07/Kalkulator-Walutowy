@@ -8,7 +8,7 @@ void main() {
 }
 
 class App extends StatelessWidget {
-  const App({Key? key}) : super(key: key);
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +28,7 @@ class App extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      // W nowym generatorze `of` zwraca non-nullable, więc bez `!`/`?`.
       onGenerateTitle: (ctx) => AppLocalizations.of(ctx).appName,
       localizationsDelegates: const [
         AppLocalizations.delegate,
@@ -45,7 +46,7 @@ class App extends StatelessWidget {
 }
 
 class _HomeShell extends StatefulWidget {
-  const _HomeShell({Key? key}) : super(key: key);
+  const _HomeShell({super.key});
 
   @override
   State<_HomeShell> createState() => _HomeShellState();
@@ -87,7 +88,7 @@ class _HomeShellState extends State<_HomeShell> {
 }
 
 class CalculatorPage extends StatelessWidget {
-  const CalculatorPage({Key? key}) : super(key: key);
+  const CalculatorPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +101,7 @@ class CalculatorPage extends StatelessWidget {
 }
 
 class RatesChartPage extends StatelessWidget {
-  const RatesChartPage({Key? key}) : super(key: key);
+  const RatesChartPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +114,7 @@ class RatesChartPage extends StatelessWidget {
 }
 
 class SettingsPage extends StatelessWidget {
-  const SettingsPage({Key? key}) : super(key: key);
+  const SettingsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
