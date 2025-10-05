@@ -8,7 +8,7 @@ void main() {
 }
 
 class App extends StatelessWidget {
-  const App({super.key});
+  const App({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class App extends StatelessWidget {
 }
 
 class _HomeShell extends StatefulWidget {
-  const _HomeShell({super.key});
+  const _HomeShell({Key? key}) : super(key: key);
 
   @override
   State<_HomeShell> createState() => _HomeShellState();
@@ -87,7 +87,7 @@ class _HomeShellState extends State<_HomeShell> {
 }
 
 class CalculatorPage extends StatelessWidget {
-  const CalculatorPage({super.key});
+  const CalculatorPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +100,7 @@ class CalculatorPage extends StatelessWidget {
 }
 
 class RatesChartPage extends StatelessWidget {
-  const RatesChartPage({super.key});
+  const RatesChartPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +113,7 @@ class RatesChartPage extends StatelessWidget {
 }
 
 class SettingsPage extends StatelessWidget {
-  const SettingsPage({super.key});
+  const SettingsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
