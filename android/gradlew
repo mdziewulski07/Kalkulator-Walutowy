@@ -1,9 +1,26 @@
 #!/usr/bin/env sh
+
 set -e
-DIR="$(cd "$(dirname "$0")" && pwd)"
-if command -v gradle >/dev/null 2>&1; then
-  exec gradle -p "$DIR" "$@"
-else
-  echo "Gradle is not installed. Please install Gradle to build Android artifacts." >&2
-  exit 1
+
+DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd -P)"
+WRAPPER_JAR="$DIR/gradle/wrapper/gradle-wrapper.jar"
+MAIN_CLASS=org.gradle.wrapper.GradleWrapperMain
+JAVA_EXEC="java"
+
+if [ -n "$JAVA_HOME" ]; then
+  JAVA_EXEC="$JAVA_HOME/bin/java"
 fi
+
+if [ -f "$WRAPPER_JAR" ]; then
+  exec "$JAVA_EXEC" -classpath "$WRAPPER_JAR" $MAIN_CLASS "$@"
+fi
+
+if [ -n "$FLUTTER_ROOT" ]; then
+  ALT_JAR="$FLUTTER_ROOT/packages/flutter_tools/gradle/gradle-wrapper.jar"
+  if [ -f "$ALT_JAR" ]; then
+    exec "$JAVA_EXEC" -classpath "$ALT_JAR" $MAIN_CLASS "$@"
+  fi
+fi
+
+echo "Gradle wrapper JAR not found, falling back to system gradle." >&2
+exec gradle "$@"

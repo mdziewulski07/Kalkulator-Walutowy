@@ -1,140 +1,123 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:go_router/go_router.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:kalkulator_walutowy/core/ui/theme.dart';
-import 'package:kalkulator_walutowy/features/currency/application/currency_cubit_or_bloc.dart';
-import 'package:kalkulator_walutowy/features/currency/presentation/calculator_page.dart';
-import 'package:kalkulator_walutowy/features/currency/presentation/rates_chart_page.dart';
-import 'package:kalkulator_walutowy/features/currency/presentation/settings_page.dart';
 import 'package:kalkulator_walutowy/l10n/app_localizations.dart';
 
-Future<void> main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  await Hive.initFlutter();
-  await CurrencyController.ensureAdapters();
-  final controller = await CurrencyController.bootstrap();
-
-  runApp(CurrencyScope(controller: controller, child: const CurrencyApp()));
+  runApp(const App());
 }
 
-class CurrencyApp extends StatefulWidget {
-  const CurrencyApp({super.key});
-
-  @override
-  State<CurrencyApp> createState() => _CurrencyAppState();
-}
-
-class _CurrencyAppState extends State<CurrencyApp> {
-  late final GoRouter _router = GoRouter(
-    initialLocation: '/calculator',
-    routes: [
-      ShellRoute(
-        builder: (context, state, child) {
-          return CurrencyShell(child: child);
-        },
-        routes: [
-          GoRoute(
-            path: '/calculator',
-            pageBuilder: (context, state) => const NoTransitionPage(child: CalculatorPage()),
-          ),
-          GoRoute(
-            path: '/chart',
-            pageBuilder: (context, state) => const NoTransitionPage(child: RatesChartPage()),
-          ),
-          GoRoute(
-            path: '/settings',
-            pageBuilder: (context, state) => const NoTransitionPage(child: SettingsPage()),
-          ),
-        ],
-      ),
-    ],
-  );
+class App extends StatelessWidget {
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = CurrencyScope.of(context);
-    final theme = CurrencyThemeData.fromSettings(controller.settings);
-    return AnimatedBuilder(
-      animation: controller,
-      builder: (context, _) {
-        final themeMode = controller.settings.themeMode;
-        return MaterialApp.router(
-          onGenerateTitle: (context) => AppLocalizations.of(context)!.appName,
-          debugShowCheckedModeBanner: false,
-          routerConfig: _router,
-          theme: buildLightTheme(theme),
-          darkTheme: buildDarkTheme(theme),
-          themeMode: themeMode,
-          locale: controller.locale,
-          supportedLocales: const [
-            Locale('pl'),
-            Locale('en'),
-            Locale('de'),
-            Locale('fr'),
-            Locale('es'),
-            Locale('it'),
-          ],
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-          ],
-        );
-      },
+    final light = ThemeData(
+      useMaterial3: true,
+      colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF111111)),
+      textTheme: Typography.material2021().black,
+    );
+    final dark = ThemeData(
+      useMaterial3: true,
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: const Color(0xFF5FDBD8),
+        brightness: Brightness.dark,
+      ),
+      textTheme: Typography.material2021().white,
+    );
+
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      onGenerateTitle: (ctx) =>
+          AppLocalizations.of(ctx)?.appName ?? 'Kalkulator Walutowy',
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: AppLocalizations.supportedLocales,
+      theme: light,
+      darkTheme: dark,
+      themeMode: ThemeMode.system,
+      home: const _HomeShell(),
     );
   }
 }
 
-class CurrencyShell extends StatefulWidget {
-  const CurrencyShell({required this.child, super.key});
-  final Widget child;
-
+class _HomeShell extends StatefulWidget {
+  const _HomeShell({super.key});
   @override
-  State<CurrencyShell> createState() => _CurrencyShellState();
+  State<_HomeShell> createState() => _HomeShellState();
 }
 
-class _CurrencyShellState extends State<CurrencyShell> {
-  int _currentIndex = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  }
-
-  void _onDestinationSelected(int index) {
-    if (_currentIndex == index) return;
-    setState(() => _currentIndex = index);
-    switch (index) {
-      case 0:
-        context.go('/calculator');
-        break;
-      case 1:
-        context.go('/chart');
-        break;
-      case 2:
-        context.go('/settings');
-        break;
-    }
-  }
+class _HomeShellState extends State<_HomeShell> {
+  int _index = 0;
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context);
+    final pages = const [CalculatorPage(), RatesChartPage(), SettingsPage()];
+
     return Scaffold(
-      body: widget.child,
+      body: SafeArea(child: pages[_index]),
       bottomNavigationBar: NavigationBar(
-        selectedIndex: _currentIndex,
-        onDestinationSelected: _onDestinationSelected,
+        selectedIndex: _index,
+        onDestinationSelected: (i) => setState(() => _index = i),
         destinations: [
-          NavigationDestination(icon: const Icon(Icons.calculate_outlined), label: l10n.calculator),
-          NavigationDestination(icon: const Icon(Icons.show_chart_outlined), label: l10n.chart),
-          NavigationDestination(icon: const Icon(Icons.settings_outlined), label: l10n.settings),
+          NavigationDestination(
+            icon: const Icon(Icons.calculate_outlined),
+            selectedIcon: const Icon(Icons.calculate),
+            label: l10n?.calculator ?? 'Calculator',
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.show_chart_outlined),
+            selectedIcon: const Icon(Icons.show_chart),
+            label: l10n?.chart ?? 'Chart',
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.settings_outlined),
+            selectedIcon: const Icon(Icons.settings),
+            label: l10n?.settings ?? 'Settings',
+          ),
         ],
       ),
+    );
+  }
+}
+
+class CalculatorPage extends StatelessWidget {
+  const CalculatorPage({super.key});
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return Scaffold(
+      appBar: AppBar(title: Text(l10n?.calculator ?? 'Calculator')),
+      body: const Center(child: Text('TODO: kalkulator walut')),
+    );
+  }
+}
+
+class RatesChartPage extends StatelessWidget {
+  const RatesChartPage({super.key});
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return Scaffold(
+      appBar: AppBar(title: Text(l10n?.chart ?? 'Chart')),
+      body: const Center(child: Text('TODO: wykres kursów')),
+    );
+  }
+}
+
+class SettingsPage extends StatelessWidget {
+  const SettingsPage({super.key});
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return Scaffold(
+      appBar: AppBar(title: Text(l10n?.settings ?? 'Settings')),
+      body: const Center(child: Text('TODO: ustawienia')),
     );
   }
 }

@@ -1,21 +1,17 @@
 # Kalkulator Walutowy
 
-Produkcyjna aplikacja Flutter wspierająca przeliczenia walut, wykresy kursów oraz zarządzanie ustawieniami offline-first.
+Minimalny projekt Flutter typu **app** przygotowany jako punkt startowy dla kalkulatora walut.
 
-## Funkcje
-- Kalkulator dwuwalutowy z klawiaturą finansową i natychmiastowym przeliczeniem.
-- Wykresy liniowe i świecowe z danymi NBP/ECB, statystykami i trybem offline.
-- Ustawienia motywu, haptyki, flag, źródła danych oraz zarządzanie danymi lokalnymi.
-- Lokalizacja w 6 językach (pl, en, de, fr, es, it) oraz formatowanie liczb/daty przez `intl`.
-- Offline-first: SQLite na szeregi historyczne, Hive na kursy, SharedPreferences na ustawienia.
+## Co zawiera
+- Konfigurację Androida zgodną z embeddingiem v2 (Kotlin, Gradle KTS).
+- Podstawową aplikację Flutter z trzema zakładkami (kalkulator, wykres, ustawienia).
+- Lokalizacje generowane przez `flutter gen-l10n` (angielski i polski).
+- Bazowy motyw Material 3 z poprawnym wykorzystaniem `TextTheme`.
+- Standardowe ignorowanie artefaktów build oraz puste katalogi zasobów (`.keep`) – bez dołączonych plików binarnych.
 
-## Architektura
-Projekt korzysta z warstw:
-- **Presentation** – widoki Flutter, nawigacja `go_router`, motywy i komponenty UI.
-- **Application** – logika stanu, use-case'y, orkiestracja danych.
-- **Data** – repozytoria, modele, integracje HTTP (NBP/ECB), lokalne bazy (Hive/SQLite) i preferencje.
+## Wymagane kroki weryfikacji
+W katalogu projektu uruchom kolejno:
 
-## Uruchomienie
 ```bash
 flutter clean
 flutter pub get
@@ -23,14 +19,8 @@ flutter gen-l10n
 flutter run
 ```
 
-## Testy
-```bash
-flutter test
-```
+## Struktura lokalizacji
+Pliki ARB znajdują się w `lib/l10n`. Generator tworzy `lib/l10n/app_localizations.dart`, a aplikacja importuje lokalizacje przez `package:kalkulator_walutowy/l10n/app_localizations.dart`.
 
-## Ikony i zasoby
-- Ikony i flagi stworzone na potrzeby projektu (format SVG, tekstowe).
-- Ikona aplikacji nie jest dołączona jako plik binarny. W razie potrzeby można ją wygenerować lokalnie (np. przy pomocy `flutter_launcher_icons`) i umieścić w `ios/Runner/Assets.xcassets/AppIcon.appiconset/` przed publikacją.
-
-## Licencje
-- Ikony i flagi stworzone na potrzeby projektu.
+## Uwagi dotyczące zasobów
+W repozytorium nie znajdują się binarne zasoby (TTF/PNG/SVG/PDF). Puste katalogi `assets/icons`, `assets/flags` i `assets/fonts` zawierają jedynie pliki `.keep`, które można zastąpić własnymi zasobami podczas dalszego rozwoju projektu.
