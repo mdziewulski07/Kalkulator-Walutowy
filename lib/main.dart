@@ -28,7 +28,6 @@ class App extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      // W nowym generatorze `of` zwraca non-nullable, więc bez `!`/`?`.
       onGenerateTitle: (ctx) => AppLocalizations.of(ctx).appName,
       localizationsDelegates: const [
         AppLocalizations.delegate,
@@ -40,14 +39,13 @@ class App extends StatelessWidget {
       theme: light,
       darkTheme: dark,
       themeMode: ThemeMode.system,
-      home: const _HomeShell(),
+      home: const _HomeShell(), // prywatny widget bez key
     );
   }
 }
 
 class _HomeShell extends StatefulWidget {
-  const _HomeShell({super.key});
-
+  const _HomeShell(); // brak key -> nie ma już "unused_element_parameter"
   @override
   State<_HomeShell> createState() => _HomeShellState();
 }
@@ -89,7 +87,6 @@ class _HomeShellState extends State<_HomeShell> {
 
 class CalculatorPage extends StatelessWidget {
   const CalculatorPage({super.key});
-
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
@@ -102,7 +99,6 @@ class CalculatorPage extends StatelessWidget {
 
 class RatesChartPage extends StatelessWidget {
   const RatesChartPage({super.key});
-
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
@@ -115,7 +111,6 @@ class RatesChartPage extends StatelessWidget {
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
-
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
