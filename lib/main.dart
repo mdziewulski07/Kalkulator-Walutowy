@@ -8,7 +8,7 @@ void main() {
 }
 
 class App extends StatelessWidget {
-  const App();
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class App extends StatelessWidget {
 }
 
 class _HomeShell extends StatefulWidget {
-  const _HomeShell(); // bez nieużywanego parametru key
+  const _HomeShell({super.key});
 
   @override
   State<_HomeShell> createState() => _HomeShellState();
@@ -87,7 +87,8 @@ class _HomeShellState extends State<_HomeShell> {
 }
 
 class CalculatorPage extends StatelessWidget {
-  const CalculatorPage();
+  const CalculatorPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
@@ -99,7 +100,8 @@ class CalculatorPage extends StatelessWidget {
 }
 
 class RatesChartPage extends StatelessWidget {
-  const RatesChartPage();
+  const RatesChartPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
@@ -111,7 +113,8 @@ class RatesChartPage extends StatelessWidget {
 }
 
 class SettingsPage extends StatelessWidget {
-  const SettingsPage();
+  const SettingsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
