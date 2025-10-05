@@ -61,7 +61,7 @@ class _CurrencyAppState extends State<CurrencyApp> {
       builder: (context, _) {
         final themeMode = controller.settings.themeMode;
         return MaterialApp.router(
-          title: 'Kalkulator Walutowy',
+          onGenerateTitle: (context) => AppLocalizations.of(context)!.appName,
           debugShowCheckedModeBanner: false,
           routerConfig: _router,
           theme: buildLightTheme(theme),
