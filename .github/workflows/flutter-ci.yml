@@ -1,0 +1,29 @@
+﻿name: Flutter CI
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          path: ~/.pub-cache
+          key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: ${{ runner.os }}-pub-
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - name: Guard Android v2
+        run: |
+          ! grep -RInE "io\.flutter\.app\.FlutterActivity|FlutterApplication|PluginRegistry|GeneratedPluginRegistrant" android || (echo "Found v1 embedding" && exit 1)
+          grep -q "project_type: app" .metadata || (echo ".metadata project_type != app" && exit 1)
+          grep -q ":app" android/settings.gradle.kts || (echo "settings.gradle.kts lacks :app" && exit 1)
+          grep -q "com.android.application" android/app/build.gradle.kts || (echo "build.gradle.kts not application" && exit 1)
+      - run: flutter pub get
+      - run: flutter gen-l10n
+      - run: flutter analyze
+      - run: flutter test --coverage

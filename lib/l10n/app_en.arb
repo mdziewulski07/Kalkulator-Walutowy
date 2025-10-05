@@ -1,0 +1,8 @@
+﻿{
+  "appName": "Currency Calculator",
+  "calculator": "Calculator",
+  "chart": "Rates chart",
+  "settings": "Settings",
+  "lastUpdateAt": "Last update: {ts}",
+  "@lastUpdateAt": { "placeholders": { "ts": {} } }
+}
