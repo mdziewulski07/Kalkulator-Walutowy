@@ -1,8 +1,82 @@
-﻿{
+{
   "appName": "Currency Calculator",
   "calculator": "Calculator",
-  "chart": "Rates chart",
+  "chart": "Chart",
   "settings": "Settings",
+  "chartTitle": "Exchange rate chart",
+  "now": "Now",
+  "nowValue": "Now {value}",
+  "@nowValue": {
+    "description": "Label showing current rate",
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "refresh": "Refresh",
   "lastUpdateAt": "Last update: {ts}",
-  "@lastUpdateAt": { "placeholders": { "ts": {} } }
+  "@lastUpdateAt": {
+    "description": "Label for update time",
+    "placeholders": {
+      "ts": {
+        "type": "String"
+      }
+    }
+  },
+  "dataSource": "Data source",
+  "nbp": "NBP",
+  "ecb": "ECB",
+  "baseCurrency": "Base currency",
+  "quoteCurrency": "Quote currency",
+  "swap": "Swap",
+  "amount": "Amount",
+  "percent": "%",
+  "clear": "C",
+  "backspace": "Back",
+  "add": "+",
+  "subtract": "−",
+  "multiply": "×",
+  "divide": "÷",
+  "equals": "=",
+  "line": "Line",
+  "candles": "Candles",
+  "range1d": "1D",
+  "range3d": "3D",
+  "range1w": "1W",
+  "range1m": "1M",
+  "range3m": "3M",
+  "range6m": "6M",
+  "range1y": "1Y",
+  "statsChange": "Change %",
+  "statsMax": "Max",
+  "statsMin": "Min",
+  "statsAvg": "Avg",
+  "errorGeneric": "Something went wrong",
+  "retry": "Try again",
+  "noData": "No data",
+  "offlineMode": "Offline mode",
+  "themeSystem": "System",
+  "themeLight": "Light",
+  "themeDark": "Dark",
+  "haptics": "Haptics",
+  "flags": "Flags",
+  "defaultCurrency": "Default currency",
+  "decimals": "Decimal places",
+  "numberFormat": "Number format",
+  "privacyData": "Data & privacy",
+  "alerts": "Notifications",
+  "analytics": "Analytics",
+  "deleteLocalData": "Delete local data",
+  "resetSettings": "Reset settings",
+  "version": "Version",
+  "source": "Source",
+  "tip": "Tip",
+  "generalSection": "General",
+  "appearanceSection": "Appearance & sound",
+  "dataSection": "Data & privacy",
+  "advancedSection": "Advanced",
+  "pullToRefresh": "Pull to refresh",
+  "loading": "Loading...",
+  "emptyState": "Nothing to show"
 }

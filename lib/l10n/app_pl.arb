@@ -1,8 +1,82 @@
-﻿{
-  "@@locale": "pl",
+{
   "appName": "Kalkulator Walutowy",
   "calculator": "Kalkulator",
-  "chart": "Wykres kursów",
+  "chart": "Wykres",
   "settings": "Ustawienia",
-  "lastUpdateAt": "Ostatnia aktualizacja: {ts}"
+  "chartTitle": "Wykres kursów",
+  "now": "Teraz",
+  "nowValue": "Teraz {value}",
+  "@nowValue": {
+    "description": "Etykieta bieżącego kursu",
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "refresh": "Odśwież",
+  "lastUpdateAt": "Ostatnia aktualizacja: {ts}",
+  "@lastUpdateAt": {
+    "description": "Etykieta czasu aktualizacji",
+    "placeholders": {
+      "ts": {
+        "type": "String"
+      }
+    }
+  },
+  "dataSource": "Źródło danych",
+  "nbp": "NBP",
+  "ecb": "ECB",
+  "baseCurrency": "Waluta bazowa",
+  "quoteCurrency": "Waluta kwotowana",
+  "swap": "Zamień",
+  "amount": "Kwota",
+  "percent": "%",
+  "clear": "C",
+  "backspace": "Wstecz",
+  "add": "+",
+  "subtract": "−",
+  "multiply": "×",
+  "divide": "÷",
+  "equals": "=",
+  "line": "Linia",
+  "candles": "Świece",
+  "range1d": "1D",
+  "range3d": "3D",
+  "range1w": "1T",
+  "range1m": "1M",
+  "range3m": "3M",
+  "range6m": "6M",
+  "range1y": "1R",
+  "statsChange": "Zmiana %",
+  "statsMax": "Max",
+  "statsMin": "Min",
+  "statsAvg": "Śr.",
+  "errorGeneric": "Coś poszło nie tak",
+  "retry": "Spróbuj ponownie",
+  "noData": "Brak danych",
+  "offlineMode": "Tryb offline",
+  "themeSystem": "System",
+  "themeLight": "Jasny",
+  "themeDark": "Ciemny",
+  "haptics": "Haptyka",
+  "flags": "Flagi",
+  "defaultCurrency": "Waluta domyślna",
+  "decimals": "Miejsca po przecinku",
+  "numberFormat": "Format liczb",
+  "privacyData": "Dane i prywatność",
+  "alerts": "Powiadomienia",
+  "analytics": "Analityka",
+  "deleteLocalData": "Usuń dane lokalne",
+  "resetSettings": "Reset ustawień",
+  "version": "Wersja",
+  "source": "Źródło",
+  "tip": "Wskazówka",
+  "generalSection": "Ogólne",
+  "appearanceSection": "Wygląd i dźwięk",
+  "dataSection": "Dane i prywatność",
+  "advancedSection": "Zaawansowane",
+  "pullToRefresh": "Przeciągnij, aby odświeżyć",
+  "loading": "Wczytywanie...",
+  "emptyState": "Brak treści"
 }

@@ -1,0 +1,82 @@
+{
+  "appName": "Calculateur de devises",
+  "calculator": "Calculatrice",
+  "chart": "Graphique",
+  "settings": "Réglages",
+  "chartTitle": "Graphique des taux",
+  "now": "Maintenant",
+  "nowValue": "Maintenant {value}",
+  "@nowValue": {
+    "description": "Libellé du taux courant",
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "refresh": "Rafraîchir",
+  "lastUpdateAt": "Dernière mise à jour : {ts}",
+  "@lastUpdateAt": {
+    "description": "Heure de mise à jour",
+    "placeholders": {
+      "ts": {
+        "type": "String"
+      }
+    }
+  },
+  "dataSource": "Source des données",
+  "nbp": "NBP",
+  "ecb": "BCE",
+  "baseCurrency": "Devise de base",
+  "quoteCurrency": "Devise cotée",
+  "swap": "Échanger",
+  "amount": "Montant",
+  "percent": "%",
+  "clear": "C",
+  "backspace": "Retour",
+  "add": "+",
+  "subtract": "−",
+  "multiply": "×",
+  "divide": "÷",
+  "equals": "=",
+  "line": "Ligne",
+  "candles": "Chandeliers",
+  "range1d": "1J",
+  "range3d": "3J",
+  "range1w": "1S",
+  "range1m": "1M",
+  "range3m": "3M",
+  "range6m": "6M",
+  "range1y": "1A",
+  "statsChange": "Variation %",
+  "statsMax": "Max",
+  "statsMin": "Min",
+  "statsAvg": "Moy.",
+  "errorGeneric": "Une erreur est survenue",
+  "retry": "Réessayer",
+  "noData": "Pas de données",
+  "offlineMode": "Mode hors ligne",
+  "themeSystem": "Système",
+  "themeLight": "Clair",
+  "themeDark": "Sombre",
+  "haptics": "Haptique",
+  "flags": "Drapeaux",
+  "defaultCurrency": "Devise par défaut",
+  "decimals": "Décimales",
+  "numberFormat": "Format des nombres",
+  "privacyData": "Données et confidentialité",
+  "alerts": "Notifications",
+  "analytics": "Analyses",
+  "deleteLocalData": "Supprimer les données locales",
+  "resetSettings": "Réinitialiser",
+  "version": "Version",
+  "source": "Source",
+  "tip": "Astuce",
+  "generalSection": "Général",
+  "appearanceSection": "Apparence et son",
+  "dataSection": "Données et confidentialité",
+  "advancedSection": "Avancé",
+  "pullToRefresh": "Tirer pour rafraîchir",
+  "loading": "Chargement...",
+  "emptyState": "Aucun contenu"
+}
