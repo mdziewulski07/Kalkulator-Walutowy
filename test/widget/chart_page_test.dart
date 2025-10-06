@@ -28,7 +28,7 @@ void main() {
       ecbApi: FakeEcbApi(<RatePoint>[]),
       localSqlite: FakeLocalSqlite(),
       hiveCache: FakeLocalHive(),
-      connectivity: FakeConnectivity(ConnectivityResult.wifi),
+      connectivity: FakeConnectivity(<ConnectivityResult>[ConnectivityResult.wifi]),
     );
     final ChartController chartController = ChartController(repository, settingsController);
     await chartController.load();

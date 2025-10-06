@@ -42,7 +42,7 @@ class _SkeletonBoxState extends State<SkeletonBox> with SingleTickerProviderStat
               end: Alignment(1 + 2 * _controller.value, 0),
               colors: <Color>[
                 theme.cardColor,
-                theme.cardColor.withOpacity(0.6),
+                theme.cardColor.withAlpha((0.6 * 255).round()),
                 theme.cardColor,
               ],
             ),

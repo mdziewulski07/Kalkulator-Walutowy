@@ -3,6 +3,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:kalkulator_walutowy/features/currency/application/calculator_controller.dart';
 import 'package:kalkulator_walutowy/features/currency/application/settings_controller.dart';
 import 'package:kalkulator_walutowy/features/currency/data/currency_repository.dart';
+import 'package:kalkulator_walutowy/features/currency/data/datasources/nbp_api.dart';
 import 'package:kalkulator_walutowy/features/currency/data/models.dart';
 
 import '../test_utils/fakes.dart';
@@ -41,7 +42,7 @@ void main() {
         ecbApi: FakeEcbApi(<RatePoint>[]),
         localSqlite: sqlite,
         hiveCache: hive,
-        connectivity: FakeConnectivity(ConnectivityResult.wifi),
+        connectivity: FakeConnectivity(<ConnectivityResult>[ConnectivityResult.wifi]),
       );
       settingsController = SettingsController(initial: Settings.defaults());
       calculatorController = CalculatorController(repository, settingsController);

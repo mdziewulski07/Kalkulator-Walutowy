@@ -201,7 +201,7 @@ class _LineChart extends StatelessWidget {
             dotData: FlDotData(show: false),
             belowBarData: BarAreaData(
               show: true,
-              color: accent.withOpacity(0.08),
+              color: accent.withAlpha((0.08 * 255).round()),
             ),
           ),
         ],

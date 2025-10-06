@@ -34,8 +34,8 @@ class SegmentedControl<T> extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
               color: selected
-                  ? theme.colorScheme.primary.withOpacity(0.16)
-                  : theme.cardColor,
+                ? theme.colorScheme.primary.withAlpha((0.16 * 255).round())
+                : theme.cardColor,
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
                 color: selected ? theme.colorScheme.primary : theme.dividerColor,

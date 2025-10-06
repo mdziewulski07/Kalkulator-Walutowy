@@ -7,7 +7,7 @@ import '../test_utils/fakes.dart';
 
 void main() {
   test('Repository caches series and serves offline', () async {
-    final FakeConnectivity connectivity = FakeConnectivity(ConnectivityResult.wifi);
+    final FakeConnectivity connectivity = FakeConnectivity(<ConnectivityResult>[ConnectivityResult.wifi]);
     final FakeLocalSqlite sqlite = FakeLocalSqlite();
     final FakeLocalHive hive = FakeLocalHive();
     final List<RatePoint> series = <RatePoint>[
@@ -32,7 +32,7 @@ void main() {
     expect(online, isNotEmpty);
     expect(sqlite.storage, isNotEmpty);
 
-    connectivity.result = ConnectivityResult.none;
+    connectivity.results = <ConnectivityResult>[ConnectivityResult.none];
 
     final List<RatePoint> offline = await repository.historicalSeries(
       pair: pair,

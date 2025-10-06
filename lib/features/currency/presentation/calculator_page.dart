@@ -6,6 +6,7 @@ import '../../../core/ui/tokens.dart';
 import '../../../l10n/app_localizations.dart';
 import '../application/calculator_controller.dart';
 import '../application/settings_controller.dart';
+import '../data/models.dart';
 import 'currency_row.dart';
 import 'keypad.dart';
 
@@ -114,7 +115,7 @@ class _SwapButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
         decoration: BoxDecoration(
-          color: theme.colorScheme.primary.withOpacity(0.1),
+          color: theme.colorScheme.primary.withAlpha((0.1 * 255).round()),
           borderRadius: BorderRadius.circular(999),
         ),
         child: Row(

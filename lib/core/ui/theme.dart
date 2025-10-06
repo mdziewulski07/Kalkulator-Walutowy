@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 import 'tokens.dart';
@@ -9,23 +7,22 @@ ThemeData buildLightTheme() {
         bodyColor: PaletteLight.textPrimary,
         displayColor: PaletteLight.textPrimary,
       );
+  final ColorScheme colorScheme = ColorScheme.light(
+    primary: PaletteLight.accentPrimary,
+    onPrimary: Colors.white,
+    secondary: PaletteLight.accentMuted,
+    onSecondary: PaletteLight.textPrimary,
+    surface: PaletteLight.surfaceElev1,
+    onSurface: PaletteLight.textPrimary,
+    error: Colors.redAccent,
+    onError: Colors.white,
+  );
   return ThemeData(
     brightness: Brightness.light,
     scaffoldBackgroundColor: PaletteLight.bgPrimary,
+    useMaterial3: true,
     textTheme: textTheme,
-    colorScheme: ColorScheme(
-      brightness: Brightness.light,
-      primary: PaletteLight.accentPrimary,
-      onPrimary: Colors.white,
-      secondary: PaletteLight.accentMuted,
-      onSecondary: PaletteLight.textPrimary,
-      error: Colors.redAccent,
-      onError: Colors.white,
-      background: PaletteLight.bgPrimary,
-      onBackground: PaletteLight.textPrimary,
-      surface: PaletteLight.surfaceElev1,
-      onSurface: PaletteLight.textPrimary,
-    ),
+    colorScheme: colorScheme,
     dividerColor: PaletteLight.divider,
     appBarTheme: const AppBarTheme(
       backgroundColor: PaletteLight.bgPrimary,
@@ -40,7 +37,7 @@ ThemeData buildLightTheme() {
       showUnselectedLabels: true,
       type: BottomNavigationBarType.fixed,
     ),
-    cardTheme: const CardTheme(
+    cardTheme: const CardThemeData(
       color: PaletteLight.surfaceElev1,
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(24))),
@@ -53,23 +50,22 @@ ThemeData buildDarkTheme() {
         bodyColor: PaletteDark.textPrimary,
         displayColor: PaletteDark.textPrimary,
       );
+  const ColorScheme colorScheme = ColorScheme.dark(
+    primary: PaletteDark.accentPrimary,
+    onPrimary: Color(0xFF0A1418),
+    secondary: PaletteDark.accentMuted,
+    onSecondary: PaletteDark.textPrimary,
+    surface: PaletteDark.surfaceElev1,
+    onSurface: PaletteDark.textPrimary,
+    error: Colors.redAccent,
+    onError: PaletteDark.textPrimary,
+  );
   return ThemeData(
     brightness: Brightness.dark,
     scaffoldBackgroundColor: PaletteDark.bgPrimary,
+    useMaterial3: true,
     textTheme: textTheme,
-    colorScheme: const ColorScheme(
-      brightness: Brightness.dark,
-      primary: PaletteDark.accentPrimary,
-      onPrimary: Color(0xFF0A1418),
-      secondary: PaletteDark.accentMuted,
-      onSecondary: PaletteDark.textPrimary,
-      error: Colors.redAccent,
-      onError: PaletteDark.textPrimary,
-      background: PaletteDark.bgPrimary,
-      onBackground: PaletteDark.textPrimary,
-      surface: PaletteDark.surfaceElev1,
-      onSurface: PaletteDark.textPrimary,
-    ),
+    colorScheme: colorScheme,
     dividerColor: PaletteDark.divider,
     appBarTheme: const AppBarTheme(
       backgroundColor: PaletteDark.bgPrimary,
@@ -84,7 +80,7 @@ ThemeData buildDarkTheme() {
       showUnselectedLabels: true,
       type: BottomNavigationBarType.fixed,
     ),
-    cardTheme: const CardTheme(
+    cardTheme: const CardThemeData(
       color: PaletteDark.surfaceElev1,
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(24))),

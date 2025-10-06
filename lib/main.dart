@@ -114,8 +114,8 @@ class _AppState extends State<App> {
           return MaterialApp.router(
             debugShowCheckedModeBanner: false,
             title: 'Kalkulator Walutowy',
-            theme: buildLightTheme().copyWith(useMaterial3: true),
-            darkTheme: buildDarkTheme().copyWith(useMaterial3: true),
+            theme: buildLightTheme(),
+            darkTheme: buildDarkTheme(),
             themeMode: _mapTheme(settings.themeMode),
             routerConfig: _router,
             localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
@@ -138,7 +138,6 @@ class _AppState extends State<App> {
       case ThemePreference.dark:
         return ThemeMode.dark;
       case ThemePreference.system:
-      default:
         return ThemeMode.system;
     }
   }

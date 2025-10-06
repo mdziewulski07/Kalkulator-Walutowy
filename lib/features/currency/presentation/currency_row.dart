@@ -33,7 +33,9 @@ class CurrencyRow extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
           decoration: BoxDecoration(
-            color: selected ? theme.colorScheme.primary.withOpacity(0.12) : theme.cardColor,
+            color: selected
+                ? theme.colorScheme.primary.withAlpha((0.12 * 255).round())
+                : theme.cardColor,
             borderRadius: BorderRadius.circular(20),
           ),
           child: Row(
@@ -89,7 +91,9 @@ class _FlagBadge extends StatelessWidget {
       width: 28,
       height: 28,
       decoration: BoxDecoration(
-        color: mono ? theme.colorScheme.secondary.withOpacity(0.2) : theme.colorScheme.primary,
+        color: mono
+            ? theme.colorScheme.secondary.withAlpha((0.2 * 255).round())
+            : theme.colorScheme.primary,
         borderRadius: BorderRadius.circular(999),
       ),
       alignment: Alignment.center,

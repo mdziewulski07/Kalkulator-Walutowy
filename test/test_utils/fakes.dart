@@ -1,16 +1,18 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:kalkulator_walutowy/features/currency/data/datasources/ecb_api.dart';
 import 'package:kalkulator_walutowy/features/currency/data/datasources/local_hive.dart';
 import 'package:kalkulator_walutowy/features/currency/data/datasources/local_sqlite.dart';
 import 'package:kalkulator_walutowy/features/currency/data/datasources/nbp_api.dart';
 import 'package:kalkulator_walutowy/features/currency/data/models.dart';
+import 'package:kalkulator_walutowy/features/currency/data/currency_repository.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
-class FakeConnectivity extends Connectivity {
-  FakeConnectivity(this.result);
-  ConnectivityResult result;
+class FakeConnectivity implements ConnectivityProbe {
+  FakeConnectivity(this.results);
+
+  List<ConnectivityResult> results;
 
   @override
-  Future<ConnectivityResult> checkConnectivity() async => result;
+  Future<List<ConnectivityResult>> checkConnectivity() async => results;
 }
 
 class FakeNbpApi extends NbpApi {

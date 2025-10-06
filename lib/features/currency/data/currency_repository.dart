@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 import 'datasources/ecb_api.dart';
 import 'datasources/local_hive.dart';
@@ -9,28 +9,42 @@ import 'datasources/local_sqlite.dart';
 import 'datasources/nbp_api.dart';
 import 'models.dart';
 
+abstract class ConnectivityProbe {
+  Future<List<ConnectivityResult>> checkConnectivity();
+}
+
+class ConnectivityPlusProbe implements ConnectivityProbe {
+  ConnectivityPlusProbe([Connectivity? connectivity])
+      : _connectivity = connectivity ?? Connectivity();
+
+  final Connectivity _connectivity;
+
+  @override
+  Future<List<ConnectivityResult>> checkConnectivity() => _connectivity.checkConnectivity();
+}
+
 class CurrencyRepository {
   CurrencyRepository({
     required NbpApi nbpApi,
     required EcbApi ecbApi,
     required LocalSqliteBase localSqlite,
     required LocalHiveCacheBase hiveCache,
-    Connectivity? connectivity,
+    ConnectivityProbe? connectivity,
   })  : _nbpApi = nbpApi,
         _ecbApi = ecbApi,
         _localSqlite = localSqlite,
         _hiveCache = hiveCache,
-        _connectivity = connectivity ?? Connectivity();
+        _connectivity = connectivity ?? ConnectivityPlusProbe();
 
   final NbpApi _nbpApi;
   final EcbApi _ecbApi;
   final LocalSqliteBase _localSqlite;
   final LocalHiveCacheBase _hiveCache;
-  final Connectivity _connectivity;
+  final ConnectivityProbe _connectivity;
 
   Future<Map<String, double>> latestRates(DataSourcePreference preference) async {
-    final ConnectivityResult connectivityResult = await _connectivity.checkConnectivity();
-    final bool online = connectivityResult != ConnectivityResult.none;
+    final List<ConnectivityResult> connectivityResult = await _connectivity.checkConnectivity();
+    final bool online = connectivityResult.any((ConnectivityResult result) => result != ConnectivityResult.none);
     if (online) {
       final Map<String, double> rates = await _nbpApi.fetchLatestRates(preference == DataSourcePreference.nbp ? 'A' : 'A');
       await _hiveCache.saveLatestRates(rates, DateTime.now(), preference);
@@ -62,8 +76,8 @@ class CurrencyRepository {
   }) async {
     final DateTime end = DateTime.now();
     final DateTime start = end.subtract(range.duration);
-    final ConnectivityResult connectivity = await _connectivity.checkConnectivity();
-    final bool online = connectivity != ConnectivityResult.none;
+    final List<ConnectivityResult> connectivity = await _connectivity.checkConnectivity();
+    final bool online = connectivity.any((ConnectivityResult result) => result != ConnectivityResult.none);
     if (online) {
       final List<RatePoint> points;
       if (preference == DataSourcePreference.nbp) {
@@ -82,7 +96,7 @@ class CurrencyRepository {
   }
 
   Future<ChartStats> statisticsForSeries(List<RatePoint> points) async {
-    return compute(() => ChartStats.fromPoints(points));
+    return compute<List<RatePoint>, ChartStats>(_calculateStats, points);
   }
 
   List<RatePoint> _syntheticFallback({required DateTime start, required DateTime end}) {
@@ -95,3 +109,5 @@ class CurrencyRepository {
     });
   }
 }
+
+ChartStats _calculateStats(List<RatePoint> points) => ChartStats.fromPoints(points);
