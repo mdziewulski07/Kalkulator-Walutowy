@@ -1,0 +1,82 @@
+{
+  "appName": "Calculadora de divisas",
+  "calculator": "Calculadora",
+  "chart": "Gráfico",
+  "settings": "Ajustes",
+  "chartTitle": "Gráfico de tipos",
+  "now": "Ahora",
+  "nowValue": "Ahora {value}",
+  "@nowValue": {
+    "description": "Etiqueta del tipo actual",
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "refresh": "Actualizar",
+  "lastUpdateAt": "Última actualización: {ts}",
+  "@lastUpdateAt": {
+    "description": "Hora de la última actualización",
+    "placeholders": {
+      "ts": {
+        "type": "String"
+      }
+    }
+  },
+  "dataSource": "Fuente de datos",
+  "nbp": "NBP",
+  "ecb": "BCE",
+  "baseCurrency": "Divisa base",
+  "quoteCurrency": "Divisa cotizada",
+  "swap": "Cambiar",
+  "amount": "Importe",
+  "percent": "%",
+  "clear": "C",
+  "backspace": "Atrás",
+  "add": "+",
+  "subtract": "−",
+  "multiply": "×",
+  "divide": "÷",
+  "equals": "=",
+  "line": "Línea",
+  "candles": "Velas",
+  "range1d": "1D",
+  "range3d": "3D",
+  "range1w": "1S",
+  "range1m": "1M",
+  "range3m": "3M",
+  "range6m": "6M",
+  "range1y": "1A",
+  "statsChange": "Cambio %",
+  "statsMax": "Máx",
+  "statsMin": "Mín",
+  "statsAvg": "Prom.",
+  "errorGeneric": "Algo salió mal",
+  "retry": "Reintentar",
+  "noData": "Sin datos",
+  "offlineMode": "Modo sin conexión",
+  "themeSystem": "Sistema",
+  "themeLight": "Claro",
+  "themeDark": "Oscuro",
+  "haptics": "Háptica",
+  "flags": "Banderas",
+  "defaultCurrency": "Divisa predeterminada",
+  "decimals": "Decimales",
+  "numberFormat": "Formato numérico",
+  "privacyData": "Datos y privacidad",
+  "alerts": "Notificaciones",
+  "analytics": "Analíticas",
+  "deleteLocalData": "Eliminar datos locales",
+  "resetSettings": "Restablecer ajustes",
+  "version": "Versión",
+  "source": "Fuente",
+  "tip": "Consejo",
+  "generalSection": "General",
+  "appearanceSection": "Apariencia y sonido",
+  "dataSection": "Datos y privacidad",
+  "advancedSection": "Avanzado",
+  "pullToRefresh": "Desliza para actualizar",
+  "loading": "Cargando...",
+  "emptyState": "Sin contenido"
+}

@@ -1,128 +1,169 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:kalkulator_walutowy/l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:provider/single_child_widget.dart';
 
-void main() {
+import 'core/ui/theme.dart';
+import 'core/ui/widgets/app_bottom_navigation.dart';
+import 'features/currency/application/calculator_controller.dart';
+import 'features/currency/application/chart_controller.dart';
+import 'features/currency/application/settings_controller.dart';
+import 'features/currency/data/currency_repository.dart';
+import 'features/currency/data/datasources/ecb_api.dart';
+import 'features/currency/data/datasources/local_hive.dart';
+import 'features/currency/data/datasources/local_sqlite.dart';
+import 'features/currency/data/datasources/nbp_api.dart';
+import 'features/currency/data/models.dart';
+import 'features/currency/presentation/calculator_page.dart';
+import 'features/currency/presentation/rates_chart_page.dart';
+import 'features/currency/presentation/settings_page.dart';
+import 'l10n/app_localizations.dart';
+
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const App());
+  await Hive.initFlutter();
+
+  final SettingsController settingsController = SettingsController();
+  await settingsController.load();
+
+  final CurrencyRepository repository = CurrencyRepository(
+    nbpApi: NbpApi(),
+    ecbApi: EcbApi(),
+    localSqlite: LocalSqlite(),
+    hiveCache: LocalHiveCache(),
+  );
+
+  final CalculatorController calculatorController = CalculatorController(repository, settingsController);
+  await calculatorController.load();
+
+  final ChartController chartController = ChartController(repository, settingsController);
+  await chartController.load();
+
+  runApp(App(
+    repository: repository,
+    settingsController: settingsController,
+    calculatorController: calculatorController,
+    chartController: chartController,
+  ));
 }
 
-class App extends StatelessWidget {
-  const App({super.key});
+class App extends StatefulWidget {
+  const App({
+    super.key,
+    required this.repository,
+    required this.settingsController,
+    required this.calculatorController,
+    required this.chartController,
+  });
+
+  final CurrencyRepository repository;
+  final SettingsController settingsController;
+  final CalculatorController calculatorController;
+  final ChartController chartController;
 
   @override
-  Widget build(BuildContext context) {
-    final light = ThemeData(
-      useMaterial3: true,
-      colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF111111)),
-      textTheme: Typography.material2021().black,
-    );
-    final dark = ThemeData(
-      useMaterial3: true,
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: const Color(0xFF5FDBD8),
-        brightness: Brightness.dark,
-      ),
-      textTheme: Typography.material2021().white,
-    );
-
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      onGenerateTitle: (ctx) {
-        final l10n = Localizations.of<AppLocalizations>(ctx, AppLocalizations);
-        return l10n?.appName ?? 'Kalkulator Walutowy';
-      },
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      supportedLocales: AppLocalizations.supportedLocales,
-      theme: light,
-      darkTheme: dark,
-      themeMode: ThemeMode.system,
-      home: const _HomeShell(),
-    );
-  }
+  State<App> createState() => _AppState();
 }
 
-class _HomeShell extends StatefulWidget {
-  const _HomeShell();
-  @override
-  State<_HomeShell> createState() => _HomeShellState();
-}
-
-class _HomeShellState extends State<_HomeShell> {
-  int _index = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = Localizations.of<AppLocalizations>(context, AppLocalizations);
-    final pages = const [CalculatorPage(), RatesChartPage(), SettingsPage()];
-
-    return Scaffold(
-      body: SafeArea(child: pages[_index]),
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: _index,
-        onDestinationSelected: (i) => setState(() => _index = i),
-        destinations: [
-          NavigationDestination(
-            icon: const Icon(Icons.calculate_outlined),
-            selectedIcon: const Icon(Icons.calculate),
-            label: l10n?.calculator ?? 'Calculator',
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.show_chart_outlined),
-            selectedIcon: const Icon(Icons.show_chart),
-            label: l10n?.chart ?? 'Chart',
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.settings_outlined),
-            selectedIcon: const Icon(Icons.settings),
-            label: l10n?.settings ?? 'Settings',
-          ),
+class _AppState extends State<App> {
+  late final GoRouter _router = GoRouter(
+    initialLocation: '/calculator',
+    routes: <RouteBase>[
+      StatefulShellRoute.indexedStack(
+        builder: (BuildContext context, GoRouterState state, StatefulNavigationShell navigationShell) {
+          return NavigationShell(navigationShell: navigationShell);
+        },
+        branches: <StatefulShellBranch>[
+          StatefulShellBranch(routes: <RouteBase>[
+            GoRoute(
+              path: '/calculator',
+              builder: (BuildContext context, GoRouterState state) => const CalculatorPage(),
+            ),
+          ]),
+          StatefulShellBranch(routes: <RouteBase>[
+            GoRoute(
+              path: '/chart',
+              builder: (BuildContext context, GoRouterState state) => const RatesChartPage(),
+            ),
+          ]),
+          StatefulShellBranch(routes: <RouteBase>[
+            GoRoute(
+              path: '/settings',
+              builder: (BuildContext context, GoRouterState state) => const SettingsPage(),
+            ),
+          ]),
         ],
       ),
-    );
-  }
-}
-
-class CalculatorPage extends StatelessWidget {
-  const CalculatorPage({super.key});
+    ],
+  );
 
   @override
   Widget build(BuildContext context) {
-    final l10n = Localizations.of<AppLocalizations>(context, AppLocalizations);
-    return Scaffold(
-      appBar: AppBar(title: Text(l10n?.calculator ?? 'Calculator')),
-      body: const Center(child: Text('TODO: kalkulator walut')),
+    return MultiProvider(
+      providers: <SingleChildWidget>[
+        Provider<CurrencyRepository>.value(value: widget.repository),
+        ChangeNotifierProvider<SettingsController>.value(value: widget.settingsController),
+        ChangeNotifierProvider<CalculatorController>.value(value: widget.calculatorController),
+        ChangeNotifierProvider<ChartController>.value(value: widget.chartController),
+      ],
+      child: Consumer<SettingsController>(
+        builder: (BuildContext context, SettingsController settingsController, Widget? child) {
+          final Settings settings = settingsController.settings;
+          return MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            title: 'Kalkulator Walutowy',
+            theme: buildLightTheme(),
+            darkTheme: buildDarkTheme(),
+            themeMode: _mapTheme(settings.themeMode),
+            routerConfig: _router,
+            localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+            ],
+            supportedLocales: AppLocalizations.supportedLocales,
+          );
+        },
+      ),
     );
+  }
+
+  ThemeMode _mapTheme(ThemePreference preference) {
+    switch (preference) {
+      case ThemePreference.light:
+        return ThemeMode.light;
+      case ThemePreference.dark:
+        return ThemeMode.dark;
+      case ThemePreference.system:
+        return ThemeMode.system;
+    }
   }
 }
 
-class RatesChartPage extends StatelessWidget {
-  const RatesChartPage({super.key});
+class NavigationShell extends StatelessWidget {
+  const NavigationShell({super.key, required this.navigationShell});
+
+  final StatefulNavigationShell navigationShell;
 
   @override
   Widget build(BuildContext context) {
-    final l10n = Localizations.of<AppLocalizations>(context, AppLocalizations);
+    final AppLocalizations strings = AppLocalizations.of(context);
     return Scaffold(
-      appBar: AppBar(title: Text(l10n?.chart ?? 'Chart')),
-      body: const Center(child: Text('TODO: wykres kursów')),
-    );
-  }
-}
-
-class SettingsPage extends StatelessWidget {
-  const SettingsPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = Localizations.of<AppLocalizations>(context, AppLocalizations);
-    return Scaffold(
-      appBar: AppBar(title: Text(l10n?.settings ?? 'Settings')),
-      body: const Center(child: Text('TODO: ustawienia')),
+      body: navigationShell,
+      bottomNavigationBar: AppBottomNavigation(
+        currentIndex: navigationShell.currentIndex,
+        onTap: (int index) {
+          navigationShell.goBranch(index, initialLocation: index == navigationShell.currentIndex);
+        },
+        items: <BottomNavItem>[
+          BottomNavItem(icon: Icons.calculate_outlined, label: strings.calculator),
+          BottomNavItem(icon: Icons.show_chart_outlined, label: strings.chart),
+          BottomNavItem(icon: Icons.settings_outlined, label: strings.settings),
+        ],
+      ),
     );
   }
 }

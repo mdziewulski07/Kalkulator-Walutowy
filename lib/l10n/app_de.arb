@@ -1,0 +1,82 @@
+{
+  "appName": "Währungsrechner",
+  "calculator": "Rechner",
+  "chart": "Diagramm",
+  "settings": "Einstellungen",
+  "chartTitle": "Wechselkursdiagramm",
+  "now": "Jetzt",
+  "nowValue": "Jetzt {value}",
+  "@nowValue": {
+    "description": "Beschriftung für aktuellen Kurs",
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "refresh": "Aktualisieren",
+  "lastUpdateAt": "Letzte Aktualisierung: {ts}",
+  "@lastUpdateAt": {
+    "description": "Zeit der letzten Aktualisierung",
+    "placeholders": {
+      "ts": {
+        "type": "String"
+      }
+    }
+  },
+  "dataSource": "Datenquelle",
+  "nbp": "NBP",
+  "ecb": "EZB",
+  "baseCurrency": "Basiswährung",
+  "quoteCurrency": "Notierungswährung",
+  "swap": "Tauschen",
+  "amount": "Betrag",
+  "percent": "%",
+  "clear": "C",
+  "backspace": "Zurück",
+  "add": "+",
+  "subtract": "−",
+  "multiply": "×",
+  "divide": "÷",
+  "equals": "=",
+  "line": "Linie",
+  "candles": "Kerzen",
+  "range1d": "1T",
+  "range3d": "3T",
+  "range1w": "1W",
+  "range1m": "1M",
+  "range3m": "3M",
+  "range6m": "6M",
+  "range1y": "1J",
+  "statsChange": "Änderung %",
+  "statsMax": "Max",
+  "statsMin": "Min",
+  "statsAvg": "Durchschn.",
+  "errorGeneric": "Etwas ist schiefgelaufen",
+  "retry": "Erneut versuchen",
+  "noData": "Keine Daten",
+  "offlineMode": "Offline-Modus",
+  "themeSystem": "System",
+  "themeLight": "Hell",
+  "themeDark": "Dunkel",
+  "haptics": "Haptik",
+  "flags": "Flaggen",
+  "defaultCurrency": "Standardwährung",
+  "decimals": "Nachkommastellen",
+  "numberFormat": "Zahlenformat",
+  "privacyData": "Daten & Datenschutz",
+  "alerts": "Benachrichtigungen",
+  "analytics": "Analysen",
+  "deleteLocalData": "Lokale Daten löschen",
+  "resetSettings": "Einstellungen zurücksetzen",
+  "version": "Version",
+  "source": "Quelle",
+  "tip": "Hinweis",
+  "generalSection": "Allgemein",
+  "appearanceSection": "Darstellung & Ton",
+  "dataSection": "Daten & Datenschutz",
+  "advancedSection": "Erweitert",
+  "pullToRefresh": "Zum Aktualisieren ziehen",
+  "loading": "Wird geladen...",
+  "emptyState": "Keine Inhalte"
+}
